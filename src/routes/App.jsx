@@ -4,6 +4,7 @@ import Home from '../containers/Home';
 import Checkout from '../containers/Checkout';
 import Layout from '../components/Layout';
 import NotFound from '../containers/NotFound';
+import AppContext from '../context/AppContext';
 import useInitialState from '../hooks/useInitialState';
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <>
       {isEmpty > 0 ? (
+        <AppContext.Provider value={initialState}>
         <BrowserRouter>
           <Layout>
             <Routes>
@@ -21,6 +23,7 @@ const App = () => {
             </Routes>
           </Layout>
         </BrowserRouter>
+        </AppContext.Provider>
       ) : (
         <h1>Loading...</h1>
       )}
