@@ -12,8 +12,8 @@ const useInitialState = () => {
   }, []);
 
   return {
-      products
-  }
+    products,
+  };
 };
 
 export default useInitialState;
