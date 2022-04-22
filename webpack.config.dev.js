@@ -79,10 +79,14 @@ module.exports = {
     }),
     new ImageMinimizerPlugin({
       minimizerOptions: {
-        plugins: [
-          ['opting', { optimizationLevel: 5 }],
-        ]
-      }
-    })
+        plugins: [['opting', { optimizationLevel: 5 }]],
+      },
+    }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
+//ward for w
