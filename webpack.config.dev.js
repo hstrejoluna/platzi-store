@@ -3,9 +3,9 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { SourceMapDevToolPlugin } = require('webpack');
-//ward for b 
+//ward for b
 module.exports = {
-  entry: './src/index.js',
+  entry: ['react-hot-loader/patch', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -20,7 +20,7 @@ module.exports = {
       '@routes': path.resolve(__dirname, 'src/routes/'),
       '@styles': path.resolve(__dirname, 'src/styles/'),
       '@assets': path.resolve(__dirname, 'src/assets/'),
-    }
+    },
   },
   module: {
     rules: [
@@ -56,11 +56,15 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
-      }
+      },
     ],
   },
   devServer: {
     historyApiFallback: true,
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3005,
+    hot: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -68,10 +72,17 @@ module.exports = {
       filename: './index.html',
     }),
     new SourceMapDevToolPlugin({
-      filename: "[file].map"
+      filename: '[file].map',
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
     }),
+    new ImageMinimizerPlugin({
+      minimizerOptions: {
+        plugins: [
+          ['opting', { optimizationLevel: 5 }],
+        ]
+      }
+    })
   ],
 };
