@@ -51,6 +51,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpg)$/i,
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ],
   },
